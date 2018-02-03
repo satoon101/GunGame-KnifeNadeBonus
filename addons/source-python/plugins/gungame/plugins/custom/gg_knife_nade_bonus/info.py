@@ -1,4 +1,4 @@
-# ../gungame/plugins/included/gg_knife_nade_bonus/info.py
+# ../gungame/plugins/custom/gg_knife_nade_bonus/info.py
 
 """Contains plugin information."""
 
