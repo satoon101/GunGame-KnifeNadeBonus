@@ -16,18 +16,27 @@ from .info import info
 # >> ALL DECLARATION
 # =============================================================================
 __all__ = (
+    'level_down',
     'weapon_convars',
 )
 
 
 # =============================================================================
-# >> CONFIGURATION
+# >> GLOBAL VARIABLES
 # =============================================================================
 weapon_convars = {
     'knife': {},
     'nade': {},
 }
+
+
+# =============================================================================
+# >> CONFIGURATION
+# =============================================================================
 with GunGameConfigManager(info.name) as _config:
+
+    with _config.cvar('give_on_level_down') as level_down:
+        level_down.add_text()
 
     with _config.cvar('nade_smoke') as nade_smoke:
         nade_smoke.add_text()
@@ -75,7 +84,7 @@ with GunGameConfigManager(info.name) as _config:
 
     with _config.cvar('knife_gravity') as knife_gravity:
         knife_gravity.add_text()
-        weapon_convars['knife']['gravite'] = knife_gravity
+        weapon_convars['knife']['gravity'] = knife_gravity
 
     with _config.cvar('knife_speed') as knife_speed:
         knife_speed.add_text()
@@ -92,15 +101,3 @@ with GunGameConfigManager(info.name) as _config:
     with _config.cvar('knife_emit_smoke') as knife_emit_smoke:
         knife_emit_smoke.add_text()
         weapon_convars['knife']['emit_smoke'] = knife_emit_smoke
-
-
-'''
-smoke
-flash
-health
-gravity
-speed
-color (just enable/disable, auto set using team color and 128 alpha)
-emit_sparks
-emit_smoke
-'''
