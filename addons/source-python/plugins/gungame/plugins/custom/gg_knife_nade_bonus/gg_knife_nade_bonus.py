@@ -32,7 +32,7 @@ EVENT_VARIABLES = {
 @Event(*EVENT_VARIABLES.keys())
 def remove_and_give_bonuses(game_event):
     """Remove and give out bonuses."""
-    if game_event.name == "gg_level_down" and not level_down.get_bool():
+    if game_event.name == "gg_level_down" and not bool(level_down):
         return
 
     player = player_dictionary[game_event[EVENT_VARIABLES[game_event.name]]]
@@ -44,20 +44,20 @@ def remove_and_give_bonuses(game_event):
     convars = weapon_convars[weapon_type]
 
     # Give smoke grenade
-    if convars["smoke"].get_bool() and level_weapon != "smokegrenade":
+    if bool(convars["smoke"]) and level_weapon != "smokegrenade":
         player.give_named_item("weapon_smokegrenade")
 
     # Give flashbang
-    if convars["flash"].get_bool() and level_weapon != "flashbang":
+    if bool(convars["flash"]) and level_weapon != "flashbang":
         player.give_named_item("weapon_flashbang")
 
     # Give extra health
-    health = convars["health"].get_int()
+    health = int(convars["health"])
     if health:
         player.health += health
 
     # Give extra speed
-    speed = convars["speed"].get_float()
+    speed = float(convars["speed"])
     if speed:
         player.speed *= speed
 
@@ -66,7 +66,7 @@ def remove_and_give_bonuses(game_event):
 def _give_speed_bonus(game_event):
     """Give speed bonus to players on knife/nade level."""
     speed_convars = {
-        weapon_type: weapon_convars[weapon_type]["speed"].get_float()
+        weapon_type: float(weapon_convars[weapon_type]["speed"])
         for weapon_type in ("nade", "knife")
     }
     for userid in [player.userid for player in PlayerIter()]:
